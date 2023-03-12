@@ -271,6 +271,21 @@ body {
 video {
   width: 100%;
   grid-column: 1;
+  
+}
+
+#gear-button{
+  display: flex;
+  justify-content: center;
+}
+
+#gear-icon{
+  width: 80%;
+  height: 80%;
+  margin: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
@@ -293,3 +308,4 @@ video {
 #side-bar-header > h1{
   margin: auto;
 }
+
