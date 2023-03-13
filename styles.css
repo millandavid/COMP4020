@@ -265,7 +265,7 @@ body {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 70% 30%;
+  grid-template-columns:70% 30%;
 }
 
 video {
@@ -279,7 +279,16 @@ video {
   justify-content: center;
 }
 
-#gear-icon{
+#gear-icon {
+  width: 80%;
+  height: 80%;
+  margin: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#side-bar-button img{
   width: 80%;
   height: 80%;
   margin: auto;

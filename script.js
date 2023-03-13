@@ -98,7 +98,7 @@ function handleTimelineUpdate(e) {
 }
 
 // Playback Speed
-speedBtn.addEventListener("click", changePlaybackSpeed)
+// speedBtn.addEventListener("click", changePlaybackSpeed)
 
 function changePlaybackSpeed() {
   let newPlaybackRate = video.playbackRate + 0.25
@@ -213,3 +213,25 @@ video.addEventListener("pause", () => {
   videoContainer.classList.add("paused")
 })
 
+let closed = false;
+const tableContainer = document.querySelector('#table-container');
+const sideBarButton = document.getElementById('side-bar-button');
+
+
+sideBarButton.addEventListener('click', () => {
+  console.log('Button clicked!');
+
+  if(closed){
+    document.getElementById("side-bar").style.display = "inline";
+    tableContainer.style.gridTemplateColumns = '70% 30%';
+    closed = false;
+    console.log('open')
+  }
+  else{
+    document.getElementById("side-bar").style.display = "none";
+    tableContainer.style.gridTemplateColumns = '100% 40%';
+    closed = true;
+    console.log('closed')
+  }
+
+});
