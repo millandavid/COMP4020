@@ -219,9 +219,9 @@ function toggleSidebar() {
 
   if (sidebarVisible) {
     document.getElementById("table-container").style.gridTemplateColumns = "70% 30%";
-    document.getElementById("open-sidebar-image").style.visibility = "none";
+    document.getElementById("open-sidebar-image").setAttribute("hidden", "");
   } else {
     document.getElementById("table-container").style.gridTemplateColumns = "100%";
-    document.getElementById("open-sidebar-image").style.visibility = "visible";
+    document.getElementById("open-sidebar-image").removeAttribute("hidden");
   }
 }
