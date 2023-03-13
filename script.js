@@ -213,11 +213,15 @@ video.addEventListener("pause", () => {
 
 function toggleSidebar() {
   console.log("toggleSidebar was called");
+
+  // Update the state to what it will be
+  sidebarVisible = !sidebarVisible;
+
   if (sidebarVisible) {
     document.getElementById("table-container").style.gridTemplateColumns = "70% 30%";
+    document.getElementById("open-sidebar-image").style.visibility = "none";
   } else {
     document.getElementById("table-container").style.gridTemplateColumns = "100%";
+    document.getElementById("open-sidebar-image").style.visibility = "visible";
   }
-
-  sidebarVisible = !sidebarVisible;
 }
