@@ -239,3 +239,22 @@ languageSetting.addEventListener('click', () => {
   console.log('Gear Button clicked!');
 });
 
+// Sidebar
+function initializeWordList() {
+  setSavedWords(getSavedWords() ?? []);
+  updateSidebarList();
+}
+
+function getSidebarList() {
+  let list = "";
+  getSavedWords().forEach((word) => (list += "<li>" + word + "</li>"));
+  return list;
+}
+
+function updateSidebarList() {
+  document.getElementById("side-bar-list").innerHTML = getSidebarList();
+}
+
+function addNewWord(word) {
+  addSavedWord(word);
+}
