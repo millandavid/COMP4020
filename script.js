@@ -216,7 +216,7 @@ video.addEventListener("pause", () => {
 let closed = false;
 const tableContainer = document.querySelector('#table-container');
 const sideBarButton = document.getElementById('side-bar-button');
-
+const languageSetting = document.getElementById('gear-button');
 
 sideBarButton.addEventListener('click', () => {
   console.log('Button clicked!');
@@ -233,5 +233,9 @@ sideBarButton.addEventListener('click', () => {
     closed = true;
     console.log('closed')
   }
-
 });
+
+languageSetting.addEventListener('click', () => {
+  console.log('Gear Button clicked!');
+});
+
