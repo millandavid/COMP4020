@@ -227,12 +227,14 @@ sideBarButton.addEventListener('click', () => {
     document.getElementById("side-bar").style.display = "inline";
     tableContainer.style.gridTemplateColumns = '70% 30%';
     closed = false;
+    document.getElementById("side-bar-icon").src = "assets/icons/sidebar.png"
     console.log('open')
   }
   else{
     document.getElementById("side-bar").style.display = "none";
     tableContainer.style.gridTemplateColumns = '100% 40%';
     closed = true;
+    document.getElementById("side-bar-icon").src = "assets/icons/sidebarFlipped.png"
     console.log('closed')
   }
 });
