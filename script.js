@@ -213,10 +213,12 @@ video.addEventListener("pause", () => {
   videoContainer.classList.add("paused")
 })
 
+
+// Sidebar js
+
 let closed = false;
 const tableContainer = document.querySelector('#table-container');
 const sideBarButton = document.getElementById('side-bar-button');
-const languageSetting = document.getElementById('gear-button');
 
 sideBarButton.addEventListener('click', () => {
   console.log('Button clicked!');
@@ -235,11 +237,6 @@ sideBarButton.addEventListener('click', () => {
   }
 });
 
-languageSetting.addEventListener('click', () => {
-  console.log('Gear Button clicked!');
-});
-
-// Sidebar
 function initializeWordList() {
   setSavedWords(getSavedWords() ?? []);
   updateSidebarList();
@@ -264,3 +261,63 @@ function removeWord(word){
   savedWords = savedWords.filter(w => w !== word);
   setSavedWords(savedWords);
 }
+
+
+// language bar js
+
+// language bar icon 
+const settingsButton = document.querySelector('#settings-button');
+const settingsPopup = document.querySelector('#settings-popup');
+
+// language buttons
+const englishButton = document.querySelector('#english-btn');
+const frenchButton = document.querySelector('#french-btn');
+const spanishButton = document.querySelector('#spanish-btn');
+
+settingsPopup.style.display = 'none';
+
+let isOpen = false;
+
+
+settingsButton.addEventListener('click', (e) => {
+  console.log('Gear Button clicked!');
+  
+  e.stopPropagation();
+
+  if(settingsPopup.style.display == 'none'){
+    settingsPopup.style.display = 'block';
+    isOpen = true;
+  }
+  else{
+    settingsPopup.style.display = 'none';
+    isOpen = false;
+  } 
+});
+
+englishButton.addEventListener('click', () => {
+  console.log('English Button clicked!');
+});
+
+frenchButton.addEventListener('click', () => {
+  console.log('French Button clicked!');
+});
+
+spanishButton.addEventListener('click', () => {
+  console.log('Spanish Button clicked!');
+});
+
+window.addEventListener('click', function(e){   
+  if (document.getElementById('settings-popup').contains(e.target)){
+    // Clicked in box
+  } 
+  else{
+    // Clicked outside the box
+    if(isOpen){
+      if(settingsPopup.style.display == 'block'){
+        settingsPopup.style.display = 'none';
+        console.log('clicked outside');
+        isOpen = false;
+      }
+    } 
+  }
+});

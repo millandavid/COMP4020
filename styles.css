@@ -39,13 +39,14 @@ body {
   z-index: 100;
   opacity: 0;
   transition: opacity 150ms ease-in-out;
+  background-color: rgba(0, 0, 0, .75); /* had to add here because the gradient was effecting everything*/
 }
 
 .video-controls-container::before {
   content: "";
   position: absolute;
   bottom: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, .75), transparent);
+  /* background-color: rgba(0, 0, 0, .75); */
   width: 100%;
   aspect-ratio: 6 / 1;
   z-index: -1;
@@ -274,12 +275,7 @@ video {
   
 }
 
-#gear-container{
-  display: flex;
-  justify-content: center;
-}
-
-#gear-icon {
+#settings-button img{
   width: 80%;
   height: 80%;
   margin: auto;
@@ -287,6 +283,45 @@ video {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Language settings style */
+
+
+#settings-popup{
+  position: absolute;
+  display: none;
+  width: 150px;
+  transform: translate(-50%, -50%);
+  bottom: 1vh;
+  right: 0;
+  z-index: 1;
+  background-color: #2B2B2B;
+  color: white;
+}
+
+#settings-popup ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#settings-popup li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+#settings-popup li:hover {
+  background-color: rgba(255, 255, 255, .1);
+}
+
+#english-btn, #french-btn, #spanish-btn{
+
+  color: white;
+
+}
+
+
+/* Sidebar styles */
 
 #side-bar-button img{
   width: 80%;
@@ -296,7 +331,6 @@ video {
   margin-left: auto;
   margin-right: auto;
 }
-
 
 #side-bar{
   width: 100%;
