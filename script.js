@@ -243,6 +243,73 @@ sideBarButton.addEventListener('click', () => {
 //          Sidebar List Functions
 // ============================================
 
+
+// ============================================ 
+//          SERVER STUFF
+// ============================================
+
+
+
+/* var server = ""
+
+function word(input){
+  var deleteButton = "<input type = 'Button' onClick='removeWord(\"" + input.id + "\")' value='delete'/>";
+  var word = "<li id = '" + input.id + "'>" + input.id + deleteButton + "</li>";
+  return word;
+}
+
+function getWords(){
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("GET", server + "/api/words");
+  xhttp.setRequestHeader("Content-Type", "application/json");
+
+  xhttp.onload = function(){
+    if (xhttp.status == 200){
+      var words = JSON.parse(xhttp.responseText);
+      var list = document.getElementById("side-bar-list");
+      list.innerHTML = "";
+
+      for(let i in words){
+        list.innerHTML += word(words[i]);
+      }
+    }
+  };
+
+  xhttp.send();
+}
+
+function addWord(word){
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("POST", server + "/api/words");
+  xhttp.setRequestHeader("Content-Type", "application/json");
+
+  xhttp.onload = function() {
+    if (xhttp.status == 200){
+      var returnedData = this.responseText;
+      console.log(returnedData);
+      getWords();
+    }
+  };
+const data = JSON.stringify({words: word});
+xhttp.send(data);
+}
+
+function removeWord(id){
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("DELETE", server + "/api/words/" + id);
+
+  xhttp.onload = function() {
+    if (xhttp.status == 200){
+      var returnedData = this.responseText;
+      console.log(returnedData);
+      getWords();
+    }
+  };
+  xhttp.send();
+} */
+
+// ============================================
+
 function initializeWordList() {
   setSavedWords(getSavedWords() ?? []);
   updateSidebarList();
