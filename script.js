@@ -237,19 +237,30 @@ sideBarButton.addEventListener('click', () => {
   }
 });
 
+// ============================================
+//          Sidebar List Functions
+// ============================================
+
 function initializeWordList() {
   setSavedWords(getSavedWords() ?? []);
   updateSidebarList();
 }
 
 function getSidebarList() {
-  let list = "";
-  getSavedWords().forEach((word) => (list += "<li>" + word + "</li>"));
-  return list;
+  let elementList = []
+  getSavedWords().forEach((word) => {
+    let element = document.createElement("li");
+    element.innerHTML = word;
+    element.setAttribute("onclick",`alert("${word}")`)
+    elementList.push(element);
+  });
+  return elementList;
 }
 
 function updateSidebarList() {
-  document.getElementById("side-bar-list").innerHTML = getSidebarList();
+  const list = document.getElementById("side-bar-list")
+  list.innerHTML = "";
+  getSidebarList().forEach((element) => list.appendChild(element));
 }
 
 function addWord(word) {
@@ -262,6 +273,7 @@ function removeWord(word){
   setSavedWords(savedWords);
 }
 
+// ============================================
 
 // language bar js
 
