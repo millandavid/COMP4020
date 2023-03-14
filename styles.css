@@ -289,9 +289,8 @@ video {
   position: absolute;
   transform: translate(-50%, -50%);
   background-color: #2B2B2B;
-  color : white;
 
-  bottom: 25px;
+  bottom: 1vh;
   right: 0;
   width: 150px;
   display: none;
