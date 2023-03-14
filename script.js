@@ -253,7 +253,7 @@ function getSidebarList() {
   getSavedWords().forEach((word) => {
     let element = document.createElement("li");
     element.innerHTML = word;
-    element.setAttribute("onclick",`alert("${word}")`)
+    element.setAttribute("onclick",`enableDefinitionView("${word}")`)
     elementList.push(element);
   });
   return elementList;
@@ -274,6 +274,28 @@ function removeWord(word){
   savedWords = savedWords.filter(w => w !== word);
   setSavedWords(savedWords);
 }
+
+
+// Functions for Definition "Page"
+// ===============================
+
+function setSidebarTitle(title){
+  document.getElementById("side-bar-title").innerHTML = title;
+}
+
+function enableDefinitionView(word){
+  setSidebarTitle(word);
+  document.getElementById("side-bar-list").innerHTML = "";
+  document.getElementById("back-arrow").style.visibility = "visible"
+}
+
+function enableListView(){
+  document.getElementById("side-bar-title").innerHTML = "Saved Words/Phrases"
+  updateSidebarList();
+  document.getElementById("back-arrow").style.visibility = "hidden"
+}
+
+
 
 // ============================================
 
