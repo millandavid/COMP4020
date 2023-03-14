@@ -216,7 +216,6 @@ video.addEventListener("pause", () => {
 let closed = false;
 const tableContainer = document.querySelector('#table-container');
 const sideBarButton = document.getElementById('side-bar-button');
-const languageSetting = document.getElementById('gear-button');
 
 sideBarButton.addEventListener('click', () => {
   console.log('Button clicked!');
@@ -235,8 +234,18 @@ sideBarButton.addEventListener('click', () => {
   }
 });
 
-languageSetting.addEventListener('click', () => {
+const settingsButton = document.querySelector('#settings-button');
+const settingsPopup = document.querySelector('#settings-popup');
+
+settingsButton.addEventListener('click', () => {
   console.log('Gear Button clicked!');
+  
+  if(settingsPopup.style.display == 'none'){
+    settingsPopup.style.display = 'block';
+  }
+  else{
+    settingsPopup.style.display = 'none';
+  } 
 });
 
 // Sidebar
