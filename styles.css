@@ -283,15 +283,19 @@ video {
   margin-right: auto;
 }
 
+/* Language settings style */
+
 #settings-popup{
   position: absolute;
   transform: translate(-50%, -50%);
-  background: linear-gradient(to top, rgba(0, 0, 0, .75), transparent);
+  background-color: #2B2B2B;
   color : white;
+
   bottom: 25px;
   right: 0;
   width: 150px;
   display: none;
+  z-index: 1;
 }
 
 #settings-popup ul {
@@ -303,11 +307,14 @@ video {
 #settings-popup li {
   padding: 5px;
   cursor: pointer;
+  color: white;
 }
 
 #settings-popup li:hover {
   background-color: rgba(255, 255, 255, .1);
 }
+
+/* Sidebar styles */
 
 #side-bar-button img{
   width: 80%;

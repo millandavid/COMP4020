@@ -2,30 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Video Translator Prototype</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
+
   <!-- Helpful Scripts -->
   <script src="./LocalStorageAPI.js" type="text/javascript"></script>
   <script src="./loadashEquivalents.js"></script>
 </head>
-<body onload="toggleTheaterMode(); initializeWordList()">
 
+<body onload="toggleTheaterMode(); initializeWordList()">
   <!-- Page Container -->
-  
   <div id="page-container">
     
     <div id="table-container">
       <!-- Video Player -->
       <div class="video-container paused" data-volume-level="high">
         <img class="thumbnail-img">
+        
         <div id="settings-popup">
           <ul>
-            <li>English</li>
-            <li>French</li>
-            <li>Spanish</li>
+            <li id="english-btn"> English</li>
+            <li id="french-btn">French</li>
+            <li id="spanish-btn">Spanish</li>
           </ul>
         </div>
         
@@ -108,8 +109,6 @@
           <ul id="side-bar-list"></ul>
         </div>
       </div>
-
-
 
     </div>
   </div>

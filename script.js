@@ -213,6 +213,9 @@ video.addEventListener("pause", () => {
   videoContainer.classList.add("paused")
 })
 
+
+// Sidebar js
+
 let closed = false;
 const tableContainer = document.querySelector('#table-container');
 const sideBarButton = document.getElementById('side-bar-button');
@@ -234,21 +237,6 @@ sideBarButton.addEventListener('click', () => {
   }
 });
 
-const settingsButton = document.querySelector('#settings-button');
-const settingsPopup = document.querySelector('#settings-popup');
-
-settingsButton.addEventListener('click', () => {
-  console.log('Gear Button clicked!');
-  
-  if(settingsPopup.style.display == 'none'){
-    settingsPopup.style.display = 'block';
-  }
-  else{
-    settingsPopup.style.display = 'none';
-  } 
-});
-
-// Sidebar
 function initializeWordList() {
   setSavedWords(getSavedWords() ?? []);
   updateSidebarList();
@@ -267,3 +255,63 @@ function updateSidebarList() {
 function addNewWord(word) {
   addSavedWord(word);
 }
+
+
+// language bar js
+
+// language bar icon 
+const settingsButton = document.querySelector('#settings-button');
+const settingsPopup = document.querySelector('#settings-popup');
+
+// language buttons
+const englishButton = document.querySelector('#english-btn');
+const frenchButton = document.querySelector('#french-btn');
+const spanishButton = document.querySelector('#spanish-btn');
+
+settingsPopup.style.display = 'none';
+
+let isOpen = false;
+
+
+settingsButton.addEventListener('click', (e) => {
+  console.log('Gear Button clicked!');
+  
+  e.stopPropagation();
+
+  if(settingsPopup.style.display == 'none'){
+    settingsPopup.style.display = 'block';
+    isOpen = true;
+  }
+  else{
+    settingsPopup.style.display = 'none';
+    isOpen = false;
+  } 
+});
+
+englishButton.addEventListener('click', () => {
+  console.log('English Button clicked!');
+});
+
+frenchButton.addEventListener('click', () => {
+  console.log('French Button clicked!');
+});
+
+spanishButton.addEventListener('click', () => {
+  console.log('Spanish Button clicked!');
+});
+
+window.addEventListener('click', function(e){   
+  if (document.getElementById('settings-popup').contains(e.target)){
+    // Clicked in box
+  } 
+  else{
+    // Clicked outside the box
+    if(isOpen){
+      if(settingsPopup.style.display == 'block'){
+        settingsPopup.style.display = 'none';
+        console.log('clicked outside');
+        isOpen = false;
+      }
+    } 
+  }
+});
