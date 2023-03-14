@@ -25,12 +25,6 @@ document.addEventListener("keydown", e => {
     case "k":
       togglePlay()
       break
-    case "f":
-      toggleFullScreenMode()
-      break
-    case "t":
-      toggleTheaterMode()
-      break
     case "i":
       toggleMiniPlayerMode()
       break
@@ -178,7 +172,7 @@ video.addEventListener("volumechange", () => {
 
 // View Modes
 // theaterBtn.addEventListener("click", toggleTheaterMode)
-fullScreenBtn.addEventListener("click", toggleFullScreenMode)
+// fullScreenBtn.addEventListener("click", toggleFullScreenMode)
 // miniPlayerBtn.addEventListener("click", toggleMiniPlayerMode)
 
 function toggleTheaterMode() {
@@ -377,6 +371,10 @@ const englishButton = document.querySelector('#english-btn');
 const frenchButton = document.querySelector('#french-btn');
 const spanishButton = document.querySelector('#spanish-btn');
 
+const englishCheckbox = document.querySelector('#english-checkbox');
+const frenchCheckbox = document.querySelector('#french-checkbox');
+const spanishCheckbox = document.querySelector('#spanish-checkbox');
+
 settingsPopup.style.display = 'none';
 
 let isOpen = false;
@@ -398,23 +396,19 @@ settingsButton.addEventListener('click', (e) => {
 });
 
 englishButton.addEventListener('click', () => {
-  console.log('English Button clicked!');
+  englishCheckbox.checked = !englishCheckbox.checked;
 });
 
 frenchButton.addEventListener('click', () => {
-  console.log('French Button clicked!');
+  frenchCheckbox.checked = !frenchCheckbox.checked;
 });
 
 spanishButton.addEventListener('click', () => {
-  console.log('Spanish Button clicked!');
+  spanishCheckbox.checked = !spanishCheckbox.checked;
 });
 
 window.addEventListener('click', function(e){   
-  if (document.getElementById('settings-popup').contains(e.target)){
-    // Clicked in box
-  } 
-  else{
-    // Clicked outside the box
+  if (!(document.getElementById('settings-popup').contains(e.target))){
     if(isOpen){
       if(settingsPopup.style.display == 'block'){
         settingsPopup.style.display = 'none';
@@ -422,5 +416,41 @@ window.addEventListener('click', function(e){
         isOpen = false;
       }
     } 
-  }
+  } 
 });
+
+// const text = document.querySelector('h1');
+// let selectedText = '';
+
+// text.addEventListener('mouseup', () => {
+//   console.log('Mouse up!');
+//   selectedText = window.getSelection().toString();
+//   if (selectedText !== '') {
+//     console.log('Text selected:', selectedText);
+//   }
+// });
+
+// text.addEventListener('mousedown', () => {
+//   selectedText = '';
+// });
+
+
+// const videoPlayer = document.getElementById('video');
+// const track = video.querySelector('track');
+
+// videoPlayer.addEventListener('mousemove', (e) => {
+//   const cues = track.activeCues;
+
+//   for (let i = 0; i < cues.length; i++) {
+//     const cue = cues[i];
+//     const cueRect = cue.getCueAsHTML().getBoundingClientRect();
+//     const x = e.clientX;
+//     const y = e.clientY;
+
+//     if (x >= cueRect.left && x <= cueRect.right && y >= cueRect.top && y <= cueRect.bottom) {
+//       cue.getCueAsHTML().style.backgroundColor = 'pink';
+//     } else {
+//       cue.getCueAsHTML().style.backgroundColor = 'yellow';
+//     }
+//   }
+// });
