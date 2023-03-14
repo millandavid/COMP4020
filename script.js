@@ -412,38 +412,11 @@ window.addEventListener('click', function(e){
   } 
 });
 
-// const text = document.querySelector('h1');
-// let selectedText = '';
-
-// text.addEventListener('mouseup', () => {
-//   console.log('Mouse up!');
-//   selectedText = window.getSelection().toString();
-//   if (selectedText !== '') {
-//     console.log('Text selected:', selectedText);
-//   }
-// });
-
-// text.addEventListener('mousedown', () => {
-//   selectedText = '';
-// });
+function getSelected(){
+  if(document.getSelection){
+    var text = document.getSelection().toString();
+    console.log(text);
+  }
+}
 
 
-// const videoPlayer = document.getElementById('video');
-// const track = video.querySelector('track');
-
-// videoPlayer.addEventListener('mousemove', (e) => {
-//   const cues = track.activeCues;
-
-//   for (let i = 0; i < cues.length; i++) {
-//     const cue = cues[i];
-//     const cueRect = cue.getCueAsHTML().getBoundingClientRect();
-//     const x = e.clientX;
-//     const y = e.clientY;
-
-//     if (x >= cueRect.left && x <= cueRect.right && y >= cueRect.top && y <= cueRect.bottom) {
-//       cue.getCueAsHTML().style.backgroundColor = 'pink';
-//     } else {
-//       cue.getCueAsHTML().style.backgroundColor = 'yellow';
-//     }
-//   }
-// });
