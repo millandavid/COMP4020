@@ -24,21 +24,21 @@ def initDB():  # create database
     connection.commit()
     return connection
 
-def addTweet(conn, word): # add words to database
+def addWords(conn, word): # add words to database
     curr = conn.cursor()
     addedWords = 'INSERT INTO words (word) VALUES ({})'
     addedWords = addedWords.format(word)
     conn.commit()
     return curr.lastrowid
 
-def delTweet(conn, word_id): # delete words from database
+def delWords(conn, word_id): # delete words from database
     curr = conn.cursor()
     deleteStr = "DELETE FROM words WHERE id = {}"
     deleteStr = deleteStr.format(word_id)
     curr.execute(deleteStr)
     conn.commit()
 
-def getTweets(conn): # get tweets from database
+def getWords(conn): # get tweets from database
     curr = conn.cursor()
     results = curr.execute('SELECT * FROM words')
 
@@ -59,7 +59,7 @@ def parseHeader(client, type, path, data):
 
         if path == "/api/words": # get words from database and send to client 
             connection = initDB()
-            sendBody = getTweets(connection)
+            sendBody = getWords(connection)
             thisHeader = jsonReply.format(len(sendBody))
             msg = thisHeader + sendBody
             client.sendall(msg.encode())
@@ -91,7 +91,7 @@ def parseHeader(client, type, path, data):
             splitter = data.split("\r\n\r\n")
             jsonObj = json.loads(splitter[1])
             words = jsonObj['words']
-            wordsID = addTweet(connection, words)
+            wordsID = addWords(connection, words)
             thisBody = "added words with id:" + str(wordsID)
             thisHeader = header.format(len(thisBody))
             msg = thisHeader + thisBody
@@ -104,7 +104,7 @@ def parseHeader(client, type, path, data):
 
         if path == "/api/words": # delete words from database
             connection = initDB()
-            delTweet(connection, splitter[3])
+            delWords(connection, splitter[3])
             thisBody = "deleted words with id: " + splitter[3]
             thisHeader = header.format(len(thisBody))
             msg = thisHeader + thisBody
