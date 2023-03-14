@@ -26,8 +26,7 @@ def initDB():  # create database
 
 def addWords(conn, word): # add words to database
     curr = conn.cursor()
-    addedWords = 'INSERT INTO words (word) VALUES ({})'
-    addedWords = addedWords.format(word)
+    curr.execute('INSERT INTO words (word) VALUES (?)', (word,))
     conn.commit()
     return curr.lastrowid
 
@@ -45,6 +44,7 @@ def getWords(conn): # get tweets from database
     items = []
     for row in results:
             items.append({'id' : row[0], 'word': row[1]})
+    print(items)
     return json.dumps(items)
 
 def httpReply(client:socket.socket): # reply to http request
@@ -54,7 +54,7 @@ def httpReply(client:socket.socket): # reply to http request
         parseHeader(client, data[0], data[1], inputData)
 
 def parseHeader(client, type, path, data):
-
+    print(data)
     if type == "GET": # GET request handler 
 
         if path == "/api/words": # get words from database and send to client 

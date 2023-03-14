@@ -250,11 +250,12 @@ sideBarButton.addEventListener('click', () => {
 
 
 
-/* var server = ""
+var server = ""
 
 function word(input){
-  var deleteButton = "<input type = 'Button' onClick='removeWord(\"" + input.id + "\")' value='delete'/>";
-  var word = "<li id = '" + input.id + "'>" + input.id + deleteButton + "</li>";
+  var deleteButton = "";
+  //var deleteButton = "<input type = 'Button' onClick='removeWord(\"" + input.id + "\")' value='delete'/>";
+  var word = "<li id = '" + input.id + "'>" + input.word + deleteButton + "</li>";
   return word;
 }
 
@@ -271,6 +272,7 @@ function getWords(){
 
       for(let i in words){
         list.innerHTML += word(words[i]);
+        list.setAttribute("onclick",`enableDefinitionView("${words[i]}")`)
       }
     }
   };
@@ -306,16 +308,15 @@ function removeWord(id){
     }
   };
   xhttp.send();
-} */
+}
 
 // ============================================
 
 function initializeWordList() {
-  setSavedWords(getSavedWords() ?? []);
-  updateSidebarList();
+  getWords();
 }
 
-function getSidebarList() {
+/* function getSidebarList() {
   let elementList = []
   getSavedWords().forEach((word) => {
     let element = document.createElement("li");
@@ -330,17 +331,9 @@ function updateSidebarList() {
   const list = document.getElementById("side-bar-list")
   list.innerHTML = "";
   getSidebarList().forEach((element) => list.appendChild(element));
-}
+} */
 
-function addWord(word) {
-  addSavedWord(word);
-}
 
-function removeWord(word){
-  let savedWords = getSavedWords();
-  savedWords = savedWords.filter(w => w !== word);
-  setSavedWords(savedWords);
-}
 
 
 // Functions for Definition "Page"
