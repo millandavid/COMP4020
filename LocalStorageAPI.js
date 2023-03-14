@@ -33,7 +33,7 @@ const setSavedWords = (savedWords) => {
 };
 
 const addSavedWord = (word) => {
-  setSavedWords([...getSavedWords, word]);
+  setSavedWords([...getSavedWords(), word]);
 };
 
 //==========================================================================================

@@ -255,6 +255,12 @@ function updateSidebarList() {
   document.getElementById("side-bar-list").innerHTML = getSidebarList();
 }
 
-function addNewWord(word) {
+function addWord(word) {
   addSavedWord(word);
+}
+
+function removeWord(word){
+  let savedWords = getSavedWords();
+  savedWords = savedWords.filter(w => w !== word);
+  setSavedWords(savedWords);
 }
