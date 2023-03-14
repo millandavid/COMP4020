@@ -1,0 +1,135 @@
+import socket
+import threading
+import json
+import sqlite3
+
+HOST = ''
+PORT = 8000
+
+jsonReply = """HTTP/1.1 200 OK
+Content-Length: {}
+Content-Type: "application/json"
+
+"""
+
+header = """HTTP/1.1 200 OK
+Content-Length: {}
+
+""" 
+
+def initDB():  # create database
+    connection = sqlite3.connect('db.db')
+    curr = connection.cursor()
+    curr.execute('CREATE TABLE IF NOT EXISTS words (id INTEGER PRIMARY KEY, word TEXT)')
+    connection.commit()
+    return connection
+
+def addTweet(conn, word): # add words to database
+    curr = conn.cursor()
+    addedWords = 'INSERT INTO words (word) VALUES ({})'
+    addedWords = addedWords.format(word)
+    conn.commit()
+    return curr.lastrowid
+
+def delTweet(conn, word_id): # delete words from database
+    curr = conn.cursor()
+    deleteStr = "DELETE FROM words WHERE id = {}"
+    deleteStr = deleteStr.format(word_id)
+    curr.execute(deleteStr)
+    conn.commit()
+
+def getTweets(conn): # get tweets from database
+    curr = conn.cursor()
+    results = curr.execute('SELECT * FROM words')
+
+    items = []
+    for row in results:
+            items.append({'id' : row[0], 'word': row[1]})
+    return json.dumps(items)
+
+def httpReply(client:socket.socket): # reply to http request
+    with client:
+        inputData = client.recv(1024).decode('utf-8')
+        data = inputData.split(" ")
+        parseHeader(client, data[0], data[1], inputData)
+
+def parseHeader(client, type, path, data):
+
+    if type == "GET": # GET request handler 
+
+        if path == "/api/words": # get words from database and send to client 
+            connection = initDB()
+            sendBody = getTweets(connection)
+            thisHeader = jsonReply.format(len(sendBody))
+            msg = thisHeader + sendBody
+            client.sendall(msg.encode())
+
+        elif path == "/": # send index.html to client 
+            with open('index.html', encoding="utf-8") as file:
+                body = file.read()
+            thisHeader = header.format(len(body))
+            msg = thisHeader + body
+            client.sendall(msg.encode())
+
+        else: # send file to client 
+            try:
+                with open(path[1:], 'rb') as file:
+                    body = file.read()
+                byteHeader = header.format(len(body))
+                byteHeader = bytes(byteHeader, 'utf-8')
+                msg = byteHeader + body
+                client.sendall(msg)
+            except FileNotFoundError as e:
+                client.sendall("HTTP/1.1 404 Not Found".encode())
+
+
+
+    elif type == "POST": # POST request handler 
+
+        if path == "/api/words": # add words to database
+            connection = initDB()
+            splitter = data.split("\r\n\r\n")
+            jsonObj = json.loads(splitter[1])
+            words = jsonObj['words']
+            wordsID = addTweet(connection, words)
+            thisBody = "added words with id:" + str(wordsID)
+            thisHeader = header.format(len(thisBody))
+            msg = thisHeader + thisBody
+            client.sendall(msg.encode())
+
+        else:
+            client.sendall("HTTP/1.1 400 Bad Request".encode())
+
+    elif type == "DELETE": # DELETE request handler
+
+        if path == "/api/words": # delete words from database
+            connection = initDB()
+            delTweet(connection, splitter[3])
+            thisBody = "deleted words with id: " + splitter[3]
+            thisHeader = header.format(len(thisBody))
+            msg = thisHeader + thisBody
+            client.sendall(msg.encode())  
+
+        else:
+            client.sendall("HTTP/1.1 400 Bad Request".encode())
+
+    else:
+        client.sendall("HTTP/1.1 400 Bad Request".encode())  
+
+initDB()
+
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    try:
+        s.bind((HOST, PORT))
+        s.listen() 
+        while True:
+            conn, addr = s.accept()
+            print("Connected by", addr)
+            newThread = threading.Thread(target=httpReply, args=(conn,))
+            newThread.start()
+
+
+    except KeyboardInterrupt as e:
+        print(e)
+        s.close()
