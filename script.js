@@ -266,7 +266,7 @@ function getWords(){
 
       for(let i in words){
         list.innerHTML += word(words[i]);
-        list.setAttribute("onclick",`enableDefinitionView("${words[i]}")`)
+        list.setAttribute("onclick",`enableDefinitionView("${words[i].word}")`)
       }
     }
   };
@@ -345,7 +345,7 @@ function enableDefinitionView(word){
 
 function enableListView(){
   document.getElementById("side-bar-title").innerHTML = "Saved Words/Phrases"
-  updateSidebarList();
+  getWords();
   document.getElementById("back-arrow").style.visibility = "hidden"
 }
 
