@@ -102,8 +102,9 @@ def parseHeader(client, type, path, data):
 
     elif type == "DELETE": # DELETE request handler
 
-        if path == "/api/words": # delete words from database
+        if "/api/words" in path: # delete words from database
             connection = initDB()
+            splitter = path.split("/")
             delWords(connection, splitter[3])
             thisBody = "deleted words with id: " + splitter[3]
             thisHeader = header.format(len(thisBody))

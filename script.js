@@ -248,8 +248,8 @@ var server = ""
 
 function word(input){
   var deleteButton = "";
-  //var deleteButton = "<input type = 'Button' onClick='removeWord(\"" + input.id + "\")' value='delete'/>";
-  var word = "<li id = '" + input.id + "'>" + input.word + deleteButton + "</li>";
+  var deleteButton = "<input type = 'Button' onClick='removeWord(\"" + input.id + "\")' value='delete'/>";
+  var word = "<li id = '" + input.id + "'>" + input.word + " " +deleteButton + "</li>";
   return word;
 }
 
