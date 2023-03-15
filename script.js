@@ -416,6 +416,7 @@ function getSelected(){
     var text = document.getSelection().toString();
     console.log(text);
   }
+  return text;
 }
 
 
