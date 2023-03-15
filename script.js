@@ -211,6 +211,7 @@ video.addEventListener("pause", () => {
 // Sidebar js
 
 let closed = false;
+let savedPageView = true;
 const tableContainer = document.querySelector('#table-container');
 const videoPlayer = document.querySelector('video');
 const sideBarButton = document.getElementById('side-bar-button');
@@ -262,7 +263,7 @@ function getWords(){
   xhttp.setRequestHeader("Content-Type", "application/json");
 
   xhttp.onload = function(){
-    if (xhttp.status == 200){
+    if (xhttp.status == 200 && savedPageView){ // Only update the screen if we're on the saved view
       var words = JSON.parse(xhttp.responseText);
       var list = document.getElementById("side-bar-list");
       list.innerHTML = "";
@@ -339,6 +340,7 @@ function enableDefinitionView(word){
   document.getElementById("side-bar-list").innerHTML = "";
   document.getElementById("back-arrow").style.visibility = "visible"
   getDefAndDisplay(word);
+  savedPageView = false;
 }
 
 function enableListView(){
@@ -346,6 +348,7 @@ function enableListView(){
   document.getElementById("side-bar-definitions").innerHTML = "";
   getWords();
   document.getElementById("back-arrow").style.visibility = "hidden"
+  savedPageView = true;
 }
 
 
@@ -461,12 +464,6 @@ function displayDefinitionElement(def){
   definitionContainer.appendChild(associatedDefinition);
 }
 
-
 function displayDefinitionBody(meanings){
-  // console.log(meanings);
-  // console.log("displaying the first meaning: ",meanings[0])
-  // displayDefinitionElement(meanings[0])
-  // console.log("Removing the List")
   meanings.forEach((meaning) => displayDefinitionElement(meaning))
-
 }
