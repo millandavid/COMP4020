@@ -39,9 +39,9 @@ document.addEventListener("keydown", e => {
     case "l":
       skip(5)
       break
-    case "c":
-      toggleCaptions()
-      break
+    // case "c":
+    //   toggleCaptions()
+    //   break
   }
 })
 
@@ -105,7 +105,7 @@ function changePlaybackSpeed() {
 const captions = video.textTracks[0]
 captions.mode = "hidden"
 
-captionsBtn.addEventListener("click", toggleCaptions)
+// captionsBtn.addEventListener("click", toggleCaptions)
 
 function toggleCaptions() {
   const isHidden = captions.mode === "hidden"
