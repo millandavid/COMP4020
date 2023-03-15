@@ -7,7 +7,6 @@ const captionsBtn = document.querySelector(".captions-btn")
 const speedBtn = document.querySelector(".speed-btn")
 const currentTimeElem = document.querySelector(".current-time")
 const totalTimeElem = document.querySelector(".total-time")
-const previewImg = document.querySelector(".preview-img")
 const thumbnailImg = document.querySelector(".thumbnail-img")
 const volumeSlider = document.querySelector(".volume-slider")
 const videoContainer = document.querySelector(".video-container")
@@ -38,9 +37,6 @@ document.addEventListener("keydown", e => {
     case "arrowright":
     case "l":
       skip(5)
-      break
-    case "c":
-      toggleCaptions()
       break
   }
 })
@@ -76,24 +72,16 @@ function toggleScrubbing(e) {
 function handleTimelineUpdate(e) {
   const rect = timelineContainer.getBoundingClientRect()
   const percent = Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width
-  const previewImgNumber = Math.max(
-    1,
-    Math.floor((percent * video.duration) / 10)
-  )
-  const previewImgSrc = `assets/previewImgs/preview${previewImgNumber}.jpg`
-  previewImg.src = previewImgSrc
+
   timelineContainer.style.setProperty("--preview-position", percent)
 
   if (isScrubbing) {
     e.preventDefault()
-    thumbnailImg.src = previewImgSrc
     timelineContainer.style.setProperty("--progress-position", percent)
   }
 }
 
 // Playback Speed
-// speedBtn.addEventListener("click", changePlaybackSpeed)
-
 function changePlaybackSpeed() {
   let newPlaybackRate = video.playbackRate + 0.25
   if (newPlaybackRate > 2) newPlaybackRate = 0.25
@@ -101,17 +89,6 @@ function changePlaybackSpeed() {
   speedBtn.textContent = `${newPlaybackRate}x`
 }
 
-// Captions
-const captions = video.textTracks[0]
-captions.mode = "hidden"
-
-captionsBtn.addEventListener("click", toggleCaptions)
-
-function toggleCaptions() {
-  const isHidden = captions.mode === "hidden"
-  captions.mode = isHidden ? "showing" : "hidden"
-  videoContainer.classList.toggle("captions", isHidden)
-}
 
 // Duration
 video.addEventListener("loadeddata", () => {
@@ -170,11 +147,6 @@ video.addEventListener("volumechange", () => {
   videoContainer.dataset.volumeLevel = volumeLevel
 })
 
-// View Modes
-// theaterBtn.addEventListener("click", toggleTheaterMode)
-// fullScreenBtn.addEventListener("click", toggleFullScreenMode)
-// miniPlayerBtn.addEventListener("click", toggleMiniPlayerMode)
-
 function toggleTheaterMode() {
   videoContainer.classList.toggle("theater")
 }
@@ -211,9 +183,13 @@ video.addEventListener("pause", () => {
 // Sidebar js
 
 let closed = false;
+let savedPageView = true;
 const tableContainer = document.querySelector('#table-container');
 const videoPlayer = document.querySelector('video');
 const sideBarButton = document.getElementById('side-bar-button');
+const tabOne = document.getElementById('tab-one');
+const tabTwo = document.getElementById('tab-two');
+
 
 sideBarButton.addEventListener('click', () => {
   console.log('Button clicked!');
@@ -223,7 +199,7 @@ sideBarButton.addEventListener('click', () => {
     tableContainer.style.gridTemplateColumns = '70% 30%';
     videoPlayer.style.width = '100%';
     closed = false;
-    document.getElementById("side-bar-icon").src = "assets/icons/sidebar.png"
+    document.getElementById("side-bar-icon").src = "assets/icons/sidebarFlipped.png"
     console.log('open')
   }
   else{
@@ -231,10 +207,16 @@ sideBarButton.addEventListener('click', () => {
     tableContainer.style.gridTemplateColumns = '100% 40%';
     videoPlayer.style.width = '70%';
     closed = true;
-    document.getElementById("side-bar-icon").src = "assets/icons/sidebarFlipped.png"
+    document.getElementById("side-bar-icon").src = "assets/icons/sidebar.png"
     console.log('closed')
   }
 });
+
+tabOne.addEventListener('click', () => {
+  console.log('Tab one clicked!');
+
+});
+
 
 // ============================================
 //          Sidebar List Functions
@@ -262,7 +244,7 @@ function getWords(){
   xhttp.setRequestHeader("Content-Type", "application/json");
 
   xhttp.onload = function(){
-    if (xhttp.status == 200){
+    if (xhttp.status == 200 && savedPageView){ // Only update the screen if we're on the saved view
       var words = JSON.parse(xhttp.responseText);
       var list = document.getElementById("side-bar-list");
       list.innerHTML = "";
@@ -338,15 +320,17 @@ function enableDefinitionView(word){
   setSidebarTitle(word);
   document.getElementById("side-bar-list").innerHTML = "";
   document.getElementById("back-arrow").style.visibility = "visible"
+  getDefAndDisplay(word);
+  savedPageView = false;
 }
 
 function enableListView(){
   document.getElementById("side-bar-title").innerHTML = "Saved Words/Phrases"
+  document.getElementById("side-bar-definitions").innerHTML = "";
   getWords();
   document.getElementById("back-arrow").style.visibility = "hidden"
+  savedPageView = true;
 }
-
-
 
 // ============================================
 
@@ -397,10 +381,10 @@ spanishButton.addEventListener('click', () => {
   spanishCheckbox.checked = !spanishCheckbox.checked;
 });
 
-// subtitles j
+// subtitles js
 const saveBtn = document.querySelector('#save-btn');
-const subtitleContent = document.getElementById('subtitle-content');
-
+const subtitleContentOne = document.getElementById('subtitle-content-one');
+const subtitleContentTwo = document.getElementById('subtitle-content-two');
 
 window.addEventListener('click', function(e){   
   if (!(document.getElementById('settings-popup').contains(e.target))){
@@ -426,7 +410,63 @@ saveBtn.addEventListener('click', () => {
   console.log('save button clicked');
 });
 
-function changeSubtitles(text){
-  subtitleContent.textContent = text;
+// This function assumes that if you're calling it the definition page is being initialized so 
+function getDefAndDisplay(word){
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("GET", "https://api.dictionaryapi.dev/api/v2/entries/en/" + word);
+  let definitions;
+
+  xhttp.onload = function(){
+    if (xhttp.status == 200){
+      definitions = JSON.parse(xhttp.responseText);
+      displayDefinitionBody(definitions[0].meanings);
+    }
+  };
+
+  xhttp.send();
 }
 
+// This method takes a definition object from the API call and adds it to the definition list in the sidebar 
+function displayDefinitionElement(def){
+  var partOfSpeech = document.createElement("h2");
+  partOfSpeech.innerHTML = `${def.partOfSpeech}`;
+
+  var associatedDefinition = document.createElement('li');
+  associatedDefinition.innerHTML = `${def.definitions[0].definition}`;
+
+  const definitionContainer = document.getElementById("side-bar-definitions");
+  definitionContainer.appendChild(partOfSpeech);
+  definitionContainer.appendChild(associatedDefinition);
+}
+
+function displayDefinitionBody(meanings){
+  meanings.forEach((meaning) => displayDefinitionElement(meaning))
+}
+
+
+
+function changeSubtitleOne(text){
+  subtitleContentOne.textContent = text;
+}
+
+function changeSubtitleTwo(text){
+  subtitleContentTwo.textContent = text;
+}
+
+function showSubtitle(subtitles, currentTime) {
+  let currentSubtitle = "";
+
+  for (let i = 0; i < subtitles.length; i++) {
+    let subtitle = subtitles[i];
+    if (currentTime >= subtitle.start && currentTime < subtitle.end) {
+      // currentSubtitle = subtitle.text;
+      break;
+    }
+  }
+  subtitleContainer.innerText = currentSubtitle;
+}
+
+setInterval(function(){
+  // console.log(video.currentTime);
+  // showSubtitle(subtitles, video.currentTime);
+}, 1000);
