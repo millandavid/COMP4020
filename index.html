@@ -103,14 +103,14 @@
               </button>
             </div>
 
-            <button class="full-screen-btn">
+            <!-- <button class="full-screen-btn">
               <svg class="open" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
               </svg>
               <svg class="close" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
               </svg>
-            </button>
+            </button> -->
           </div>
         </div>
         <video src="assets/Video.mp4">
@@ -132,9 +132,11 @@
     </div>
   </div>
 
-  <div id="subtitle">
-    <h1>This is an example sentence</h1>
-    <button id="save-btn" type="button" onclick="addWord(getSelected())"> Save </button>
+  <div id="subtitle-container">
+    <h3 id="subtitle-content">This is an example sentence. Evan is not that cool but Millan is better</h3>
+    <div id="save-btn-container">
+      <button id="save-btn" type= "button" onclick="getSelected()"> Save </button>
+    </div>
   </div>
 
 </body>

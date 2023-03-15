@@ -4,11 +4,13 @@
 
 body {
   margin: 0;
+  padding: 0;
 }
 
 .video-container {
   position: relative;
   width: 90%;
+  height: 100%;
   max-width: 1000px;
   display: flex;
   justify-content: center;
@@ -259,7 +261,6 @@ body {
   width: 100%;
   height: 100%;
   background-color: blue;
-  
 }
 
 #table-container{
@@ -336,7 +337,7 @@ video {
   width: 100%;
   height: 100%;
   grid-column: 2;
-  background-color: red;
+  background-color: #E6E6E9;
   /* border: solid;
   border-color: black; */
 }
@@ -344,7 +345,7 @@ video {
 #side-bar-header{
   width: 100%;
   height: 10%;
-  background-color:coral;
+  background-color:#9999A1;
   display: flex;
 }
 
@@ -354,19 +355,43 @@ video {
 
 /* Captions */
 
-video::-webkit-media-text-track-display {
+#subtitle-container{
   position: absolute;
-  background-color: blue;
-  margin-bottom: 100px;
-} 
-
-::cue {
-  position: absolute;
-  bottom: 100;
+  height: 20%;
   width: 100%;
+  
+  background-color: #9999A1;
+
+  display: grid;
   text-align: center;
-  font-size: 1.2em;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 0.5em;
+  grid-template-columns: 90% 10%;
+}
+
+
+#subtitle-content{
+  height: 100%;
+  /* background-color: blue; */
+  text-align: center;
+  grid-column: 1;
+  grid-row: 2;
+  margin:0;
+  padding-top: 25px;
+
+}
+
+#save-btn-container{
+  height: 5px;
+  text-align: center;
+  grid-column: 1;
+  grid-row: 1;
+  
+}
+
+#save-btn{
+  color: black;
+
+  /* border: none; */
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 0;
 }

@@ -399,6 +399,11 @@ spanishButton.addEventListener('click', () => {
   spanishCheckbox.checked = !spanishCheckbox.checked;
 });
 
+// subtitles j
+const saveBtn = document.querySelector('#save-btn');
+const subtitleContent = document.getElementById('subtitle-content');
+
+
 window.addEventListener('click', function(e){   
   if (!(document.getElementById('settings-popup').contains(e.target))){
     if(isOpen){
@@ -419,4 +424,11 @@ function getSelected(){
   return text;
 }
 
+saveBtn.addEventListener('click', () => {
+  console.log('save button clicked');
+});
+
+function changeSubtitles(text){
+  subtitleContent.textContent = text;
+}
 
