@@ -45,7 +45,7 @@ def getSubtitles(conn): # get subtitles from database
 
     items = []
     for row in results:
-            items.append({'id' : row[0], 'text': row[1], 'lang': row[2], 'startTime': row[3], 'videoName': row[4]})
+            items.append({'id' : row[0], 'text': row[3], 'lang': row[2], 'startTime': row[1], 'videoName': row[4]})
     return json.dumps(items)    
 
 def addWords(conn, word): # add words to database
