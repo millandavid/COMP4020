@@ -215,6 +215,9 @@ let savedPageView = true;
 const tableContainer = document.querySelector('#table-container');
 const videoPlayer = document.querySelector('video');
 const sideBarButton = document.getElementById('side-bar-button');
+const tabOne = document.getElementById('tab-one');
+const tabTwo = document.getElementById('tab-two');
+
 
 sideBarButton.addEventListener('click', () => {
   console.log('Button clicked!');
@@ -236,6 +239,12 @@ sideBarButton.addEventListener('click', () => {
     console.log('closed')
   }
 });
+
+tabOne.addEventListener('click', () => {
+  console.log('Tab one clicked!');
+
+});
+
 
 // ============================================
 //          Sidebar List Functions
@@ -402,10 +411,10 @@ spanishButton.addEventListener('click', () => {
   spanishCheckbox.checked = !spanishCheckbox.checked;
 });
 
-// subtitles j
+// subtitles js
 const saveBtn = document.querySelector('#save-btn');
-const subtitleContent = document.getElementById('subtitle-content');
-
+const subtitleContentOne = document.getElementById('subtitle-content-one');
+const subtitleContentTwo = document.getElementById('subtitle-content-two');
 
 window.addEventListener('click', function(e){   
   if (!(document.getElementById('settings-popup').contains(e.target))){
@@ -431,9 +440,14 @@ saveBtn.addEventListener('click', () => {
   console.log('save button clicked');
 });
 
-function changeSubtitles(text){
-  subtitleContent.textContent = text;
+function changeSubtitleOne(text){
+  subtitleContentOne.textContent = text;
 }
+
+function changeSubtitleTwo(text){
+  subtitleContentTwo.textContent = text;
+}
+
 
 // This function assumes that if you're calling it the definition page is being initialized so 
 function getDefAndDisplay(word){
