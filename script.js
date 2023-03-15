@@ -430,3 +430,18 @@ function changeSubtitles(text){
   subtitleContent.textContent = text;
 }
 
+// The function returns a list of definitions or undefined if no definition is found
+async function getDef(word){
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("GET", "https://api.dictionaryapi.dev/api/v2/entries/en/" + word);
+  let definitions;
+
+  xhttp.onload = await function(){
+    if (xhttp.status == 200){
+      definitions = JSON.parse(xhttp.responseText);
+      console.log(definitions[0].meanings);
+    }
+  };
+
+  xhttp.send();
+}
