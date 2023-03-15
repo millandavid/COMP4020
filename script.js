@@ -288,21 +288,37 @@ function removeWord(id){
   xhttp.send();
 }
 
-function getSubtitles(){
+function getSubsFrench(){
   const xhttp = new XMLHttpRequest();
-  xhttp.open("GET", server + "/api/subtitles");
+  xhttp.open("GET", server + "/api/subtitles/french");
   xhttp.setRequestHeader("Content-Type", "application/json");
 
   xhttp.onload = function(){
     if (xhttp.status == 200){
       var subs = JSON.parse(xhttp.responseText);
-      console.log("The subs are", subs);
-      subtitles = subs;
+      console.log("The french subs are", subs);
+      //subtitles = subs;
     }
   };
 
   xhttp.send();
 }
+
+function getSubsEnglish(){
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("GET", server + "/api/subtitles/english");
+  xhttp.setRequestHeader("Content-Type", "application/json");
+
+  xhttp.onload = function(){
+    if (xhttp.status == 200){
+      var subs = JSON.parse(xhttp.responseText);
+      console.log("The english subs are", subs);
+      //subtitles = subs;
+    }
+  };
+
+  xhttp.send();
+} 
 
 // ============================================
 
