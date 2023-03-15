@@ -338,10 +338,12 @@ function enableDefinitionView(word){
   setSidebarTitle(word);
   document.getElementById("side-bar-list").innerHTML = "";
   document.getElementById("back-arrow").style.visibility = "visible"
+  getDefAndDisplay(word);
 }
 
 function enableListView(){
   document.getElementById("side-bar-title").innerHTML = "Saved Words/Phrases"
+  document.getElementById("side-bar-definitions").innerHTML = "";
   getWords();
   document.getElementById("back-arrow").style.visibility = "hidden"
 }
@@ -399,8 +401,8 @@ spanishButton.addEventListener('click', () => {
 
 // subtitles j
 const saveBtn = document.querySelector('#save-btn');
-const subtitleContentOne = document.getElementById('subtitle-content-one');
-const subtitleContentTwo = document.getElementById('subtitle-content-two');
+const subtitleContent = document.getElementById('subtitle-content');
+
 
 window.addEventListener('click', function(e){   
   if (!(document.getElementById('settings-popup').contains(e.target))){
@@ -426,26 +428,45 @@ saveBtn.addEventListener('click', () => {
   console.log('save button clicked');
 });
 
-function changeSubtitleOne(text){
-  subtitleContentOne.textContent = text;
+function changeSubtitles(text){
+  subtitleContent.textContent = text;
 }
 
-function changeSubtitleTwo(text){
-  subtitleContentTwo.textContent = text;
-}
-
-// The function returns a list of definitions or undefined if no definition is found
-async function getDef(word){
+// This function assumes that if you're calling it the definition page is being initialized so 
+function getDefAndDisplay(word){
   const xhttp = new XMLHttpRequest();
   xhttp.open("GET", "https://api.dictionaryapi.dev/api/v2/entries/en/" + word);
   let definitions;
 
-  xhttp.onload = await function(){
+  xhttp.onload = function(){
     if (xhttp.status == 200){
       definitions = JSON.parse(xhttp.responseText);
-      console.log(definitions[0].meanings);
+      displayDefinitionBody(definitions[0].meanings);
     }
   };
 
   xhttp.send();
+}
+
+// This method takes a definition object from the API call and adds it to the definition list in the sidebar 
+function displayDefinitionElement(def){
+  var partOfSpeech = document.createElement("h2");
+  partOfSpeech.innerHTML = `${def.partOfSpeech}`;
+
+  var associatedDefinition = document.createElement('li');
+  associatedDefinition.innerHTML = `${def.definitions[0].definition}`;
+
+  const definitionContainer = document.getElementById("side-bar-definitions");
+  definitionContainer.appendChild(partOfSpeech);
+  definitionContainer.appendChild(associatedDefinition);
+}
+
+
+function displayDefinitionBody(meanings){
+  // console.log(meanings);
+  // console.log("displaying the first meaning: ",meanings[0])
+  // displayDefinitionElement(meanings[0])
+  // console.log("Removing the List")
+  meanings.forEach((meaning) => displayDefinitionElement(meaning))
+
 }

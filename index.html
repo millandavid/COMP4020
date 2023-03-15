@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
 
@@ -16,38 +17,38 @@
 <body onload="toggleTheaterMode(); initializeWordList()">
   <!-- Page Container -->
   <div id="page-container">
-    
+
     <div id="table-container">
       <!-- Video Player -->
       <div class="video-container paused" data-volume-level="high">
         <img class="thumbnail-img">
-        
+
         <div id="settings-popup">
           <ul>
             <li id="english-btn">
               <label>
-               <input type="checkbox" id="english-checkbox">
-               <span class="checkmark"></span>
-             </label>
-             English
-           </li>
-           <li id="french-btn">
-             <label>
-              <input type="checkbox" id="french-checkbox">
-              <span class="checkmark"></span>
-            </label>
-            French
-          </li>
-          <li id="spanish-btn">
-           <label >
-            <input type="checkbox" id="spanish-checkbox">
-            <span class="checkmark"></span>
-          </label>
-          Spanish
-        </li>
+                <input type="checkbox" id="english-checkbox">
+                <span class="checkmark"></span>
+              </label>
+              English
+            </li>
+            <li id="french-btn">
+              <label>
+                <input type="checkbox" id="french-checkbox">
+                <span class="checkmark"></span>
+              </label>
+              French
+            </li>
+            <li id="spanish-btn">
+              <label>
+                <input type="checkbox" id="spanish-checkbox">
+                <span class="checkmark"></span>
+              </label>
+              Spanish
+            </li>
           </ul>
         </div>
-        
+
         <div class="video-controls-container">
           <div class="timeline-container">
             <div class="timeline">
@@ -56,7 +57,7 @@
             </div>
           </div>
 
-          
+
           <div class="controls">
             <button class="play-pause-btn">
               <svg class="play-icon" viewBox="0 0 24 24">
@@ -69,13 +70,16 @@
             <div class="volume-container">
               <button class="mute-btn">
                 <svg class="volume-high-icon" viewBox="0 0 24 24">
-                  <path fill="currentColor" d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z" />
+                  <path fill="currentColor"
+                    d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z" />
                 </svg>
                 <svg class="volume-low-icon" viewBox="0 0 24 24">
-                  <path fill="currentColor" d="M5,9V15H9L14,20V4L9,9M18.5,12C18.5,10.23 17.5,8.71 16,7.97V16C17.5,15.29 18.5,13.76 18.5,12Z" />
+                  <path fill="currentColor"
+                    d="M5,9V15H9L14,20V4L9,9M18.5,12C18.5,10.23 17.5,8.71 16,7.97V16C17.5,15.29 18.5,13.76 18.5,12Z" />
                 </svg>
                 <svg class="volume-muted-icon" viewBox="0 0 24 24">
-                  <path fill="currentColor" d="M12,4L9.91,6.09L12,8.18M4.27,3L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L21,19.73L12,10.73M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,10.23 15.5,8.71 14,7.97V10.18L16.45,12.63C16.5,12.43 16.5,12.21 16.5,12Z" />
+                  <path fill="currentColor"
+                    d="M12,4L9.91,6.09L12,8.18M4.27,3L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L21,19.73L12,10.73M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,10.23 15.5,8.71 14,7.97V10.18L16.45,12.63C16.5,12.43 16.5,12.21 16.5,12Z" />
                 </svg>
               </button>
               <input class="volume-slider" type="range" min="0" max="1" step="any" value="1">
@@ -87,7 +91,8 @@
             </div>
             <button class="captions-btn">
               <svg viewBox="0 0 24 24">
-                <path fill="currentColor" d="M18,11H16.5V10.5H14.5V13.5H16.5V13H18V14A1,1 0 0,1 17,15H14A1,1 0 0,1 13,14V10A1,1 0 0,1 14,9H17A1,1 0 0,1 18,10M11,11H9.5V10.5H7.5V13.5H9.5V13H11V14A1,1 0 0,1 10,15H7A1,1 0 0,1 6,14V10A1,1 0 0,1 7,9H10A1,1 0 0,1 11,10M19,4H5C3.89,4 3,4.89 3,6V18A2,2 0 0,0 5,20H19A2,2 0 0,0 21,18V6C21,4.89 20.1,4 19,4Z" />
+                <path fill="currentColor"
+                  d="M18,11H16.5V10.5H14.5V13.5H16.5V13H18V14A1,1 0 0,1 17,15H14A1,1 0 0,1 13,14V10A1,1 0 0,1 14,9H17A1,1 0 0,1 18,10M11,11H9.5V10.5H7.5V13.5H9.5V13H11V14A1,1 0 0,1 10,15H7A1,1 0 0,1 6,14V10A1,1 0 0,1 7,9H10A1,1 0 0,1 11,10M19,4H5C3.89,4 3,4.89 3,6V18A2,2 0 0,0 5,20H19A2,2 0 0,0 21,18V6C21,4.89 20.1,4 19,4Z" />
               </svg>
             </button>
 
@@ -99,7 +104,7 @@
 
             <div id="side-bar-container">
               <button id="side-bar-button">
-                <img id="side-bar-icon"  src="assets/icons/sidebar.png" >
+                <img id="side-bar-icon" src="assets/icons/sidebar.png">
               </button>
             </div>
 
@@ -124,8 +129,12 @@
           <button id="back-arrow" style="visibility: hidden;" onclick="enableListView()">←</button>
           <h1 id="side-bar-title">Saved Words/Phrases</h1>
         </div>
+
         <div id="side-bar-content">
+          <!-- List of Saved words -->
           <ul id="side-bar-list"></ul>
+          <!-- List of Definitions words -->
+          <div id="side-bar-definitions"></div>
         </div>
       </div>
 
@@ -134,7 +143,7 @@
 
   <div id="subtitle-container">
     <div id="save-btn-container">
-      <button id="save-btn" type= "button" onclick="addWord(getSelected())"> Save </button>
+      <button id="save-btn" type="button" onclick="addWord(getSelected())"> Save </button>
     </div>
     <h3 id="subtitle-content-one">This is an example sentence. Evan is not that cool but Millan is better</h3>
     <h3 id="subtitle-content-two">This is an example sentence. Evan is so not cool but Millan is epic</h3>
