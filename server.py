@@ -22,13 +22,13 @@ def initDB():  # create database
     curr = connection.cursor()
     curr.execute('CREATE TABLE IF NOT EXISTS words (id INTEGER PRIMARY KEY, word TEXT)')
     connection.commit()
-    curr.execute('CREATE TABLE IF NOT EXISTS subtitles (id INTEGER PRIMARY KEY, text TEXT, lang TEXT, startTime TEXT, videoName TEXT)')
+    curr.execute('CREATE TABLE IF NOT EXISTS subtitles (id INTEGER PRIMARY KEY, text startTime , lang TEXT, text TEXT, videoName TEXT)')
     connection.commit()
     return connection
 
 def addSubtitles(conn, text, lang, startTime, videoName): # add subtitles to database
     curr = conn.cursor()
-    curr.execute('INSERT INTO subtitles (text, lang, startTime, videoName) VALUES (?, ?, ?, ?)', (text, lang, startTime, videoName))
+    curr.execute('INSERT INTO subtitles (startTime, lang, text, videoName) VALUES (?, ?, ?, ?)', (startTime, lang, text, videoName))
     conn.commit()
     return curr.lastrowid
 
@@ -41,11 +41,11 @@ def delSubtitles(conn, subtitle_id): # delete subtitles from database
 
 def getSubtitles(conn): # get subtitles from database
     curr = conn.cursor()
-    results = curr.execute('SELECT * FROM subtitles')
+    results = curr.execute('SELECT * FROM subtitles WHERE lang = "french"')
 
     items = []
     for row in results:
-            items.append({'id' : row[0], 'text': row[3], 'lang': row[2], 'startTime': row[1], 'videoName': row[4]})
+            items.append({'id' : row[0], 'startTime': row[1], 'lang': row[2], 'text': row[3], 'videoName': row[4]})
     return json.dumps(items)    
 
 def addWords(conn, word): # add words to database
