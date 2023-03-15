@@ -313,19 +313,21 @@ function initializeWordList() {
 // ===============================
 
 function setSidebarTitle(title){
-  document.getElementById("side-bar-title").innerHTML = title;
+  document.getElementById("tab-one").innerHTML = title;
 }
 
 function enableDefinitionView(word){
   setSidebarTitle(word);
   document.getElementById("side-bar-list").innerHTML = "";
   document.getElementById("back-arrow").style.visibility = "visible"
+  document.getElementById("tab-two").innerHTML = "";
   getDefAndDisplay(word);
   savedPageView = false;
 }
 
 function enableListView(){
-  document.getElementById("side-bar-title").innerHTML = "Saved Words/Phrases"
+  document.getElementById("tab-one").innerHTML = "Saved"
+  document.getElementById("tab-two").innerHTML = "Quiz";
   document.getElementById("side-bar-definitions").innerHTML = "";
   getWords();
   document.getElementById("back-arrow").style.visibility = "hidden"
