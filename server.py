@@ -22,13 +22,13 @@ def initDB():  # create database
     curr = connection.cursor()
     curr.execute('CREATE TABLE IF NOT EXISTS words (id INTEGER PRIMARY KEY, word TEXT)')
     connection.commit()
-    curr.execute('CREATE TABLE IF NOT EXISTS subtitles (id INTEGER PRIMARY KEY, text TEXT, startTime TEXT)')
+    curr.execute('CREATE TABLE IF NOT EXISTS subtitles (id INTEGER PRIMARY KEY, text TEXT, lang TEXT, startTime TEXT)')
     connection.commit()
     return connection
 
-def addSubtitles(conn, text, startTime): # add subtitles to database
+def addSubtitles(conn, text, lang, startTime): # add subtitles to database
     curr = conn.cursor()
-    curr.execute('INSERT INTO subtitles (text, startTime) VALUES (?, ?)', (text, startTime))
+    curr.execute('INSERT INTO subtitles (text, lang, startTime) VALUES (?, ?, ?)', (text, lang, startTime))
     conn.commit()
     return curr.lastrowid
 
@@ -45,7 +45,7 @@ def getSubtitles(conn): # get subtitles from database
 
     items = []
     for row in results:
-            items.append({'id' : row[0], 'text': row[1], 'startTime': row[2]})
+            items.append({'id' : row[0], 'text': row[1], 'lang': row[2], 'startTime': row[3]})
     
     return json.dumps(items)    
 
