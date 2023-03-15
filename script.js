@@ -7,7 +7,6 @@ const captionsBtn = document.querySelector(".captions-btn")
 const speedBtn = document.querySelector(".speed-btn")
 const currentTimeElem = document.querySelector(".current-time")
 const totalTimeElem = document.querySelector(".total-time")
-const previewImg = document.querySelector(".preview-img")
 const thumbnailImg = document.querySelector(".thumbnail-img")
 const volumeSlider = document.querySelector(".volume-slider")
 const videoContainer = document.querySelector(".video-container")
@@ -39,9 +38,6 @@ document.addEventListener("keydown", e => {
     case "l":
       skip(5)
       break
-    // case "c":
-    //   toggleCaptions()
-    //   break
   }
 })
 
@@ -76,24 +72,16 @@ function toggleScrubbing(e) {
 function handleTimelineUpdate(e) {
   const rect = timelineContainer.getBoundingClientRect()
   const percent = Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width
-  const previewImgNumber = Math.max(
-    1,
-    Math.floor((percent * video.duration) / 10)
-  )
-  const previewImgSrc = `assets/previewImgs/preview${previewImgNumber}.jpg`
-  previewImg.src = previewImgSrc
+
   timelineContainer.style.setProperty("--preview-position", percent)
 
   if (isScrubbing) {
     e.preventDefault()
-    thumbnailImg.src = previewImgSrc
     timelineContainer.style.setProperty("--progress-position", percent)
   }
 }
 
 // Playback Speed
-// speedBtn.addEventListener("click", changePlaybackSpeed)
-
 function changePlaybackSpeed() {
   let newPlaybackRate = video.playbackRate + 0.25
   if (newPlaybackRate > 2) newPlaybackRate = 0.25
@@ -101,17 +89,6 @@ function changePlaybackSpeed() {
   speedBtn.textContent = `${newPlaybackRate}x`
 }
 
-// Captions
-const captions = video.textTracks[0]
-captions.mode = "hidden"
-
-// captionsBtn.addEventListener("click", toggleCaptions)
-
-function toggleCaptions() {
-  const isHidden = captions.mode === "hidden"
-  captions.mode = isHidden ? "showing" : "hidden"
-  videoContainer.classList.toggle("captions", isHidden)
-}
 
 // Duration
 video.addEventListener("loadeddata", () => {
@@ -169,11 +146,6 @@ video.addEventListener("volumechange", () => {
 
   videoContainer.dataset.volumeLevel = volumeLevel
 })
-
-// View Modes
-// theaterBtn.addEventListener("click", toggleTheaterMode)
-// fullScreenBtn.addEventListener("click", toggleFullScreenMode)
-// miniPlayerBtn.addEventListener("click", toggleMiniPlayerMode)
 
 function toggleTheaterMode() {
   videoContainer.classList.toggle("theater")
@@ -359,8 +331,6 @@ function enableListView(){
   document.getElementById("back-arrow").style.visibility = "hidden"
   savedPageView = true;
 }
-
-
 
 // ============================================
 
