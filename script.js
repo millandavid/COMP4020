@@ -424,6 +424,8 @@ function getDefAndDisplay(word){
     if (xhttp.status == 200){
       definitions = JSON.parse(xhttp.responseText);
       displayDefinitionBody(definitions[0].meanings);
+    } else if (xhttp.status == 404){
+      displayDefinitionElement({partOfSpeech: "Sorry no definition could be found for this word", definitions: [{definition: ""}]})
     }
   };
 
@@ -432,15 +434,18 @@ function getDefAndDisplay(word){
 
 // This method takes a definition object from the API call and adds it to the definition list in the sidebar 
 function displayDefinitionElement(def){
+  console.log("Got the def: ",def)
   var partOfSpeech = document.createElement("h2");
   partOfSpeech.innerHTML = `${def.partOfSpeech}`;
 
-  var associatedDefinition = document.createElement('li');
-  associatedDefinition.innerHTML = `${def.definitions[0].definition}`;
+  if(def.definitions[0].definition){
+    var associatedDefinition = document.createElement('li');
+    associatedDefinition.innerHTML = `${def.definitions[0].definition}`;
+  }
 
   const definitionContainer = document.getElementById("side-bar-definitions");
   definitionContainer.appendChild(partOfSpeech);
-  definitionContainer.appendChild(associatedDefinition);
+  def.definitions[0].definition && definitionContainer.appendChild(associatedDefinition);
 }
 
 function displayDefinitionBody(meanings){
