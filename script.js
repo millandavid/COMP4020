@@ -212,6 +212,7 @@ video.addEventListener("pause", () => {
 
 let closed = false;
 const tableContainer = document.querySelector('#table-container');
+const videoPlayer = document.querySelector('video');
 const sideBarButton = document.getElementById('side-bar-button');
 
 sideBarButton.addEventListener('click', () => {
@@ -220,6 +221,7 @@ sideBarButton.addEventListener('click', () => {
   if(closed){
     document.getElementById("side-bar").style.display = "inline";
     tableContainer.style.gridTemplateColumns = '70% 30%';
+    videoPlayer.style.width = '100%';
     closed = false;
     document.getElementById("side-bar-icon").src = "assets/icons/sidebar.png"
     console.log('open')
@@ -227,6 +229,7 @@ sideBarButton.addEventListener('click', () => {
   else{
     document.getElementById("side-bar").style.display = "none";
     tableContainer.style.gridTemplateColumns = '100% 40%';
+    videoPlayer.style.width = '70%';
     closed = true;
     document.getElementById("side-bar-icon").src = "assets/icons/sidebarFlipped.png"
     console.log('closed')
@@ -308,26 +311,6 @@ function removeWord(id){
 function initializeWordList() {
   getWords();
 }
-
-/* function getSidebarList() {
-  let elementList = []
-  getSavedWords().forEach((word) => {
-    let element = document.createElement("li");
-    element.innerHTML = word;
-    element.setAttribute("onclick",`enableDefinitionView("${word}")`)
-    elementList.push(element);
-  });
-  return elementList;
-}
-
-function updateSidebarList() {
-  const list = document.getElementById("side-bar-list")
-  list.innerHTML = "";
-  getSidebarList().forEach((element) => list.appendChild(element));
-} */
-
-
-
 
 // Functions for Definition "Page"
 // ===============================
