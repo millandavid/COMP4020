@@ -297,7 +297,7 @@ function getSubsFrench(){
     if (xhttp.status == 200){
       var subs = JSON.parse(xhttp.responseText);
       console.log("The french subs are", subs);
-      //subtitles = subs;
+      frenchSubs = subs;
     }
   };
 
@@ -313,12 +313,17 @@ function getSubsEnglish(){
     if (xhttp.status == 200){
       var subs = JSON.parse(xhttp.responseText);
       console.log("The english subs are", subs);
-      //subtitles = subs;
+      englishSubs = subs;
     }
   };
 
   xhttp.send();
 } 
+
+function getSubtitles(){
+  getSubsEnglish();
+  getSubsFrench();
+}
 
 // ============================================
 
@@ -404,7 +409,8 @@ frenchButton.addEventListener('click', () => {
 const saveBtn = document.querySelector('#save-btn');
 const subtitleContentOne = document.getElementById('subtitle-content-one');
 const subtitleContentTwo = document.getElementById('subtitle-content-two');
-let subtitles;
+let englishSubs;
+let frenchSubs;
 
 window.addEventListener('click', function(e){   
   if (!(document.getElementById('settings-popup').contains(e.target))){
@@ -501,5 +507,6 @@ function showSubtitle(subtitles, currentTime) {
 }
 
 setInterval(function(){
-  showSubtitle(subtitles, video.currentTime);
+  showSubtitle(englishSubs, video.currentTime);
+  showSubtitle(frenchSubs, video.currentTime);
 }, 1000);
