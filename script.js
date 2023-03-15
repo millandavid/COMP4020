@@ -345,11 +345,11 @@ const settingsPopup = document.querySelector('#settings-popup');
 // language buttons
 const englishButton = document.querySelector('#english-btn');
 const frenchButton = document.querySelector('#french-btn');
-const spanishButton = document.querySelector('#spanish-btn');
+// const spanishButton = document.querySelector('#spanish-btn');
 
 const englishCheckbox = document.querySelector('#english-checkbox');
 const frenchCheckbox = document.querySelector('#french-checkbox');
-const spanishCheckbox = document.querySelector('#spanish-checkbox');
+// const spanishCheckbox = document.querySelector('#spanish-checkbox');
 
 settingsPopup.style.display = 'none';
 
@@ -379,9 +379,9 @@ frenchButton.addEventListener('click', () => {
   frenchCheckbox.checked = !frenchCheckbox.checked;
 });
 
-spanishButton.addEventListener('click', () => {
-  spanishCheckbox.checked = !spanishCheckbox.checked;
-});
+// spanishButton.addEventListener('click', () => {
+//   spanishCheckbox.checked = !spanishCheckbox.checked;
+// });
 
 // subtitles js
 const saveBtn = document.querySelector('#save-btn');
