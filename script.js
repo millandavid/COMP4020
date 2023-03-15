@@ -224,7 +224,7 @@ sideBarButton.addEventListener('click', () => {
     tableContainer.style.gridTemplateColumns = '70% 30%';
     videoPlayer.style.width = '100%';
     closed = false;
-    document.getElementById("side-bar-icon").src = "assets/icons/sidebar.png"
+    document.getElementById("side-bar-icon").src = "assets/icons/sidebarFlipped.png"
     console.log('open')
   }
   else{
@@ -232,7 +232,7 @@ sideBarButton.addEventListener('click', () => {
     tableContainer.style.gridTemplateColumns = '100% 40%';
     videoPlayer.style.width = '70%';
     closed = true;
-    document.getElementById("side-bar-icon").src = "assets/icons/sidebarFlipped.png"
+    document.getElementById("side-bar-icon").src = "assets/icons/sidebar.png"
     console.log('closed')
   }
 });
