@@ -39,14 +39,23 @@ def delSubtitles(conn, subtitle_id): # delete subtitles from database
     curr.execute(deleteStr)
     conn.commit()
 
-def getSubtitles(conn): # get subtitles from database
+def getFrSubtitles(conn): # get subtitles from database
     curr = conn.cursor()
     results = curr.execute('SELECT * FROM subtitles WHERE lang = "french"')
 
     items = []
     for row in results:
             items.append({'id' : row[0], 'startTime': row[1], 'lang': row[2], 'text': row[3], 'videoName': row[4]})
-    return json.dumps(items)    
+    return json.dumps(items) 
+
+def getEngSubtitles(conn): # get subtitles from database
+    curr = conn.cursor()
+    results = curr.execute('SELECT * FROM subtitles WHERE lang = "english"')
+
+    items = []
+    for row in results:
+            items.append({'id' : row[0], 'startTime': row[1], 'lang': row[2], 'text': row[3], 'videoName': row[4]})
+    return json.dumps(items)
 
 def addWords(conn, word): # add words to database
     curr = conn.cursor()
@@ -88,9 +97,16 @@ def parseHeader(client, type, path, data):
             msg = thisHeader + sendBody
             client.sendall(msg.encode())
 
-        elif path == "/api/subtitles": # get subtitles from database and send to client
+        elif path == "/api/subtitles/french": # get subtitles from database and send to client
             connection = initDB()
-            sendBody = getSubtitles(connection)
+            sendBody = getFrSubtitles(connection)
+            thisHeader = jsonReply.format(len(sendBody))
+            msg = thisHeader + sendBody
+            client.sendall(msg.encode())
+
+        elif path == "/api/subtitles/english": # get subtitles from database and send to client
+            connection = initDB()
+            sendBody = getEngSubtitles(connection)
             thisHeader = jsonReply.format(len(sendBody))
             msg = thisHeader + sendBody
             client.sendall(msg.encode())
