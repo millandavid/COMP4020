@@ -303,6 +303,21 @@ function removeWord(id){
   xhttp.send();
 }
 
+function getSubtitles(){
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("GET", server + "/api/subtitles");
+  xhttp.setRequestHeader("Content-Type", "application/json");
+
+  xhttp.onload = function(){
+    if (xhttp.status == 200){
+      var subtitles = JSON.parse(xhttp.responseText);
+      console.log(subtitles);
+    }
+  };
+
+  xhttp.send();
+}
+
 // ============================================
 
 function initializeWordList() {

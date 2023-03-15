@@ -22,7 +22,32 @@ def initDB():  # create database
     curr = connection.cursor()
     curr.execute('CREATE TABLE IF NOT EXISTS words (id INTEGER PRIMARY KEY, word TEXT)')
     connection.commit()
+    curr.execute('CREATE TABLE IF NOT EXISTS subtitles (id INTEGER PRIMARY KEY, text TEXT, startTime TEXT)')
+    connection.commit()
     return connection
+
+def addSubtitles(conn, text, startTime): # add subtitles to database
+    curr = conn.cursor()
+    curr.execute('INSERT INTO subtitles (text, startTime) VALUES (?, ?)', (text, startTime))
+    conn.commit()
+    return curr.lastrowid
+
+def delSubtitles(conn, subtitle_id): # delete subtitles from database
+    curr = conn.cursor()
+    deleteStr = "DELETE FROM subtitles WHERE id = {}"
+    deleteStr = deleteStr.format(subtitle_id)
+    curr.execute(deleteStr)
+    conn.commit()
+
+def getSubtitles(conn): # get subtitles from database
+    curr = conn.cursor()
+    results = curr.execute('SELECT * FROM subtitles')
+
+    items = []
+    for row in results:
+            items.append({'id' : row[0], 'text': row[1], 'startTime': row[2]})
+    
+    return json.dumps(items)    
 
 def addWords(conn, word): # add words to database
     curr = conn.cursor()
@@ -60,6 +85,13 @@ def parseHeader(client, type, path, data):
         if path == "/api/words": # get words from database and send to client 
             connection = initDB()
             sendBody = getWords(connection)
+            thisHeader = jsonReply.format(len(sendBody))
+            msg = thisHeader + sendBody
+            client.sendall(msg.encode())
+
+        elif path == "/api/subtitles": # get subtitles from database and send to client
+            connection = initDB()
+            sendBody = getSubtitles(connection)
             thisHeader = jsonReply.format(len(sendBody))
             msg = thisHeader + sendBody
             client.sendall(msg.encode())
