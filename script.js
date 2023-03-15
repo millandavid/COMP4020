@@ -440,15 +440,6 @@ saveBtn.addEventListener('click', () => {
   console.log('save button clicked');
 });
 
-function changeSubtitleOne(text){
-  subtitleContentOne.textContent = text;
-}
-
-function changeSubtitleTwo(text){
-  subtitleContentTwo.textContent = text;
-}
-
-
 // This function assumes that if you're calling it the definition page is being initialized so 
 function getDefAndDisplay(word){
   const xhttp = new XMLHttpRequest();
@@ -481,3 +472,31 @@ function displayDefinitionElement(def){
 function displayDefinitionBody(meanings){
   meanings.forEach((meaning) => displayDefinitionElement(meaning))
 }
+
+
+
+function changeSubtitleOne(text){
+  subtitleContentOne.textContent = text;
+}
+
+function changeSubtitleTwo(text){
+  subtitleContentTwo.textContent = text;
+}
+
+function showSubtitle(subtitles, currentTime) {
+  let currentSubtitle = "";
+
+  for (let i = 0; i < subtitles.length; i++) {
+    let subtitle = subtitles[i];
+    if (currentTime >= subtitle.start && currentTime < subtitle.end) {
+      // currentSubtitle = subtitle.text;
+      break;
+    }
+  }
+  subtitleContainer.innerText = currentSubtitle;
+}
+
+setInterval(function(){
+  // console.log(video.currentTime);
+  // showSubtitle(subtitles, video.currentTime);
+}, 1000);
