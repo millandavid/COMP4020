@@ -399,8 +399,8 @@ spanishButton.addEventListener('click', () => {
 
 // subtitles j
 const saveBtn = document.querySelector('#save-btn');
-const subtitleContent = document.getElementById('subtitle-content');
-
+const subtitleContentOne = document.getElementById('subtitle-content-one');
+const subtitleContentTwo = document.getElementById('subtitle-content-two');
 
 window.addEventListener('click', function(e){   
   if (!(document.getElementById('settings-popup').contains(e.target))){
@@ -426,7 +426,11 @@ saveBtn.addEventListener('click', () => {
   console.log('save button clicked');
 });
 
-function changeSubtitles(text){
-  subtitleContent.textContent = text;
+function changeSubtitleOne(text){
+  subtitleContentOne.textContent = text;
+}
+
+function changeSubtitleTwo(text){
+  subtitleContentTwo.textContent = text;
 }
 

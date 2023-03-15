@@ -364,15 +364,25 @@ video {
   display: grid;
   text-align: center;
   grid-template-columns: 90% 10%;
+  grid-template-rows: 20% 25% 25%;
 }
 
 
-#subtitle-content{
+#subtitle-content-one{
   height: 100%;
-  /* background-color: blue; */
   text-align: center;
   grid-column: 1;
   grid-row: 2;
+  margin:0;
+  padding-top: 25px;
+
+}
+
+#subtitle-content-two{
+  height: 100%;
+  text-align: center;
+  grid-column: 1;
+  grid-row: 3;
   margin:0;
   padding-top: 25px;
 
