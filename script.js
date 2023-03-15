@@ -478,13 +478,12 @@ function showSubtitle(subtitles, currentTime) {
     const subEndTime = i < subtitles.length-1 ? timeToSec(subtitles[i+1].startTime) : Number.MAX_VALUE
 
     if (currentTime >= subStartTime && currentTime < subEndTime) {
-      changeSubtitleTwo(subtitle.text);
-      break;
+      if(subtitle.lang === "english") changeSubtitleOne(subtitle.text);
+      if(subtitle.lang === "french") changeSubtitleTwo(subtitle.text);
     }
   }
 }
 
 setInterval(function(){
-  console.log(video.currentTime);
   showSubtitle(subtitles, video.currentTime);
 }, 1000);
