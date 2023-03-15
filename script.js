@@ -234,7 +234,7 @@ var server = ""
 function word(input){
   var deleteButton = "";
   var deleteButton = "<input type = 'Button' onClick='removeWord(\"" + input.id + "\")' value='delete'/>";
-  var word = "<li id = '" + input.id + "' onclick='enableDefinitionView(\"" + input.word + "\")'/>" + input.word +"</li>";
+  var word = "<li id = '" + input.id + "' class='saved-word-item' onclick='enableDefinitionView(\"" + input.word + "\")'/>" + input.word +"</li>";
   return word + deleteButton;
 }
 

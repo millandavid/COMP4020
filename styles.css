@@ -404,3 +404,8 @@ video {
   margin-top: 10px;
   margin-bottom: 0;
 }
+
+
+.saved-word-item:hover {
+  cursor: pointer;
+}
