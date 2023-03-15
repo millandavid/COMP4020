@@ -295,8 +295,9 @@ function getSubtitles(){
 
   xhttp.onload = function(){
     if (xhttp.status == 200){
-      var subtitles = JSON.parse(xhttp.responseText);
-      console.log(subtitles);
+      var subs = JSON.parse(xhttp.responseText);
+      console.log("The subs are", subs);
+      subtitles = subs;
     }
   };
 
@@ -387,6 +388,7 @@ frenchButton.addEventListener('click', () => {
 const saveBtn = document.querySelector('#save-btn');
 const subtitleContentOne = document.getElementById('subtitle-content-one');
 const subtitleContentTwo = document.getElementById('subtitle-content-two');
+let subtitles;
 
 window.addEventListener('click', function(e){   
   if (!(document.getElementById('settings-popup').contains(e.target))){
@@ -422,6 +424,8 @@ function getDefAndDisplay(word){
     if (xhttp.status == 200){
       definitions = JSON.parse(xhttp.responseText);
       displayDefinitionBody(definitions[0].meanings);
+    } else if (xhttp.status == 404){
+      displayDefinitionElement({partOfSpeech: "Sorry no definition could be found for this word", definitions: [{definition: ""}]})
     }
   };
 
@@ -430,15 +434,18 @@ function getDefAndDisplay(word){
 
 // This method takes a definition object from the API call and adds it to the definition list in the sidebar 
 function displayDefinitionElement(def){
+  console.log("Got the def: ",def)
   var partOfSpeech = document.createElement("h2");
   partOfSpeech.innerHTML = `${def.partOfSpeech}`;
 
-  var associatedDefinition = document.createElement('li');
-  associatedDefinition.innerHTML = `${def.definitions[0].definition}`;
+  if(def.definitions[0].definition){
+    var associatedDefinition = document.createElement('li');
+    associatedDefinition.innerHTML = `${def.definitions[0].definition}`;
+  }
 
   const definitionContainer = document.getElementById("side-bar-definitions");
   definitionContainer.appendChild(partOfSpeech);
-  definitionContainer.appendChild(associatedDefinition);
+  def.definitions[0].definition && definitionContainer.appendChild(associatedDefinition);
 }
 
 function displayDefinitionBody(meanings){
@@ -446,6 +453,13 @@ function displayDefinitionBody(meanings){
 }
 
 
+
+// Subtitle Code
+
+function timeToSec(timeString) {
+  const [minutes, seconds] = timeString.split(':');
+  return Number(minutes) * 60 + Number(seconds);
+}
 
 function changeSubtitleOne(text){
   subtitleContentOne.textContent = text;
@@ -456,19 +470,21 @@ function changeSubtitleTwo(text){
 }
 
 function showSubtitle(subtitles, currentTime) {
-  let currentSubtitle = "";
 
   for (let i = 0; i < subtitles.length; i++) {
+
     let subtitle = subtitles[i];
-    if (currentTime >= subtitle.start && currentTime < subtitle.end) {
-      // currentSubtitle = subtitle.text;
+    const subStartTime = timeToSec(subtitle.startTime)
+    const subEndTime = i < subtitles.length-1 ? timeToSec(subtitles[i+1].startTime) : Number.MAX_VALUE
+
+    if (currentTime >= subStartTime && currentTime < subEndTime) {
+      changeSubtitleTwo(subtitle.text);
       break;
     }
   }
-  subtitleContainer.innerText = currentSubtitle;
 }
 
 setInterval(function(){
-  // console.log(video.currentTime);
-  // showSubtitle(subtitles, video.currentTime);
+  console.log(video.currentTime);
+  showSubtitle(subtitles, video.currentTime);
 }, 1000);
