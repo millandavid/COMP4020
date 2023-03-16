@@ -532,4 +532,4 @@ setInterval(function(){
     subtitleContentTwo.style.display = "none";
   }
 
-}, 1000);
+}, 250);
