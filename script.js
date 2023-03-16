@@ -401,6 +401,16 @@ frenchButton.addEventListener('click', () => {
   frenchCheckbox.checked = !frenchCheckbox.checked;
 });
 
+
+englishCheckbox.addEventListener('click', () => {
+  englishCheckbox.checked = !englishCheckbox.checked;
+});
+
+
+frenchCheckbox.addEventListener('click', () => {
+  frenchCheckbox.checked = !frenchCheckbox.checked;
+});
+
 // spanishButton.addEventListener('click', () => {
 //   spanishCheckbox.checked = !spanishCheckbox.checked;
 // });
@@ -474,8 +484,6 @@ function displayDefinitionBody(meanings){
   meanings.forEach((meaning) => displayDefinitionElement(meaning))
 }
 
-
-
 // Subtitle Code
 
 function timeToSec(timeString) {
@@ -509,4 +517,19 @@ function showSubtitle(subtitles, currentTime) {
 setInterval(function(){
   showSubtitle(englishSubs, video.currentTime);
   showSubtitle(frenchSubs, video.currentTime);
+
+  if(englishCheckbox.checked){
+    subtitleContentOne.style.display = "block";
+  }
+  else{
+      subtitleContentOne.style.display = "none";
+  }
+
+  if(frenchCheckbox.checked){
+    subtitleContentTwo.style.display = "block";
+  }
+  else{
+    subtitleContentTwo.style.display = "none";
+  }
+
 }, 1000);
