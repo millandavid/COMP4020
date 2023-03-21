@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Translator Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+
+  <!-- Helpful Scripts -->
+  <script src="./LocalStorageAPI.js" type="text/javascript"></script>
+  <script src="./loadashEquivalents.js"></script>
+</head>
+
+<body onload="toggleTheaterMode(); initializeWordList(); getSubtitles()">
+  <!-- Page Container -->
+  <div id="page-container">
+
+    <div id="table-container">
+      <!-- Video Player -->
+      <div class="video-container paused" data-volume-level="high">
+        <img class="thumbnail-img">
+
+        <div id="settings-popup">
+          <ul>
+            <li id="english-btn">
+              <label>
+                <input type="checkbox" id="english-checkbox" checked="">
+                <span class="checkmark"></span>
+              </label>
+              English
+            </li>
+            <li id="french-btn">
+              <label>
+                <input type="checkbox" id="french-checkbox" checked="">
+                <span class="checkmark"></span>
+              </label>
+              French
+            </li>
+            <li id="spanish-btn">
+              <!-- <label>
+                <input type="checkbox" id="spanish-checkbox">
+                <span class="checkmark"></span>
+              </label>
+              Spanish -->
+            </li>
+          </ul>
+        </div>
+
+        <div class="video-controls-container">
+          <div class="timeline-container">
+            <div class="timeline">
+              <div class="thumb-indicator"></div>
+            </div>
+          </div>
+
+
+          <div class="controls">
+            <button class="play-pause-btn">
+              <svg class="play-icon" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+              </svg>
+              <svg class="pause-icon" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" />
+              </svg>
+            </button>
+            <div class="volume-container">
+              <button class="mute-btn">
+                <svg class="volume-high-icon" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z" />
+                </svg>
+                <svg class="volume-low-icon" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M5,9V15H9L14,20V4L9,9M18.5,12C18.5,10.23 17.5,8.71 16,7.97V16C17.5,15.29 18.5,13.76 18.5,12Z" />
+                </svg>
+                <svg class="volume-muted-icon" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M12,4L9.91,6.09L12,8.18M4.27,3L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L21,19.73L12,10.73M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,10.23 15.5,8.71 14,7.97V10.18L16.45,12.63C16.5,12.43 16.5,12.21 16.5,12Z" />
+                </svg>
+              </button>
+              <input class="volume-slider" type="range" min="0" max="1" step="any" value="1">
+            </div>
+            <div class="duration-container">
+              <div class="current-time">0:00</div>
+              /
+              <div class="total-time"></div>
+            </div>
+            <div id="settings-container">
+              <button id="settings-button">
+                <img src="assets/icons/gear.png">
+              </button>
+            </div>
+
+            <div id="side-bar-container">
+              <button id="side-bar-button">
+                <img id="side-bar-icon" src="assets/icons/sidebarFlipped.png">
+              </button>
+            </div>
+          </div>
+        </div>
+        <video src="assets/videoOne.mp4">
+          <track kind="captions" srclang="en" src="assets/subtitles.vtt">
+        </video>
+      </div>
+
+      <!-- Sidebar -->
+      <div id="side-bar">
+        <div id="side-bar-header">
+          <button id="back-arrow" style="visibility: hidden;" onclick="enableListView()">←</button>
+
+          <h1 id="tab-one">Saved </h1>
+          <h1 id="tab-two">Quiz</h1>
+        </div>
+
+        <div id="side-bar-content">
+          <!-- List of Saved words -->
+          <ul id="side-bar-list"></ul>
+          <!-- List of Definitions words -->
+          <div id="side-bar-definitions"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="subtitle-container">
+    <div id="save-btn-container">
+      <button id="save-btn" type="button" onclick="addWord(getSelected())"> Save </button>
+    </div>
+    <h3 id="subtitle-content-one"></h3>
+    <h3 id="subtitle-content-two"></h3>
+  </div>
+
+</body>
+
+</html>
