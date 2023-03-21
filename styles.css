@@ -273,7 +273,7 @@ body {
 }
 
 video {
-  width: 100%;
+  width: 90%;
   grid-column: 1;
 
 }
@@ -405,7 +405,7 @@ video {
   color: black;
 
   /* border: none; */
-  padding: 10px;
+  padding: 5px;
   margin-top: 10px;
   margin-bottom: 0;
 }

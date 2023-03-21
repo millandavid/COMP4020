@@ -259,19 +259,22 @@ function getWords(){
 }
 
 function addWord(word){
-  const xhttp = new XMLHttpRequest();
-  xhttp.open("POST", server + "/api/words");
-  xhttp.setRequestHeader("Content-Type", "application/json");
+  if(word != ""){
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", server + "/api/words");
+    xhttp.setRequestHeader("Content-Type", "application/json");
 
-  xhttp.onload = function() {
-    if (xhttp.status == 200){
-      var returnedData = this.responseText;
-      console.log(returnedData);
-      getWords();
-    }
-  };
-const data = JSON.stringify({words: word});
-xhttp.send(data);
+    xhttp.onload = function() {
+      if (xhttp.status == 200){
+        var returnedData = this.responseText;
+        console.log(returnedData);
+        getWords();
+      }
+    };
+    const data = JSON.stringify({words: word});
+    xhttp.send(data);
+  }
+
 }
 
 function removeWord(id){
