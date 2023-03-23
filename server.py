@@ -118,6 +118,15 @@ def parseHeader(client, type, path, data):
             msg = thisHeader + body
             client.sendall(msg.encode())
 
+        elif path == "/assets/videoOne.mp4": # send video to client
+            with open('assets/videoOne.mp4', 'rb') as file:
+                body = file.read()
+            thisHeader = header.format(len(body))
+            thisHeader = bytes(thisHeader, 'utf-8')
+            msg = thisHeader + body
+            client.sendall(msg)
+            
+
         else: # send file to client 
             try:
                 with open(path[1:], 'rb') as file:

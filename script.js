@@ -323,6 +323,30 @@ function getSubsEnglish(){
   xhttp.send();
 } 
 
+function getVideoOne(){
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("GET", server + "/assets/videoOne.mp4");
+  xhttp.responseType = "blob"
+
+  xhttp.onload = function(){
+    if (xhttp.status == 200){
+      var videoID = document.getElementById("videoOne");
+      var video = URL.createObjectURL(new Blob([xhttp.response], {type: "video/mp4"}));
+      videoID.src = video;
+    }
+  };
+
+   xhttp.onprogress = function(e){
+    if(e.lengthComputable) {
+        var percentComplete = ((e.loaded/e.total)*100|0) + '%';
+        console.log('progress: ', percentComplete);
+    }
+
+  
+  } 
+  xhttp.send();
+}
+
 function getSubtitles(){
   getSubsEnglish();
   getSubsFrench();

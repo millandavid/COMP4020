@@ -14,7 +14,7 @@
   <script src="./loadashEquivalents.js"></script>
 </head>
 
-<body onload="toggleTheaterMode(); initializeWordList(); getSubtitles()">
+<body onload=" getVideoOne(); toggleTheaterMode(); initializeWordList(); getSubtitles()">
 
   <div id="table-container">
     <!-- Video Player -->
@@ -99,8 +99,7 @@
           </div>
         </div>
       </div>
-      <video src="assets/videoOne.mp4">
-        <track kind="captions" srclang="en" src="assets/subtitles.vtt">
+      <video id="videoOne">
       </video>
     </div>
 
