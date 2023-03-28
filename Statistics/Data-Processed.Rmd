@@ -17,7 +17,23 @@ allTimes <- c(youtubeTimes, prototypeTimes)
 groups <- c(rep("YouTube", length(youtubeTimes)), 
             rep("Prototype", length(prototypeTimes)))
 
+mean(youtubeTimes)
+sd(youtubeTimes)
+
+mean(prototypeTimes)
+sd(prototypeTimes)
+
+```
+
+
+```{r Anova}
 times.anova <- aov(allTimes ~ groups)
 summary(times.anova)
+```
+
+
+```{r T-Test}
+
+t.test(youtubeTimes, prototypeTimes, paired = TRUE, alternative = "greater", conf.level = 0.95)
 
 ```
