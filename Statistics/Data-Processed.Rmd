@@ -1,0 +1,23 @@
+---
+title: "Stats-Project-2-Part-2"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Inputing the data into Variables and running the Anova test
+
+```{r Processing data}
+youtubeTimes <- c(72, 72, 72, 72, 72, 72, 72)
+prototypeTimes <- c(140, 90, 129, 109, 167, 201, 155)
+
+allTimes <- c(youtubeTimes, prototypeTimes)
+groups <- c(rep("YouTube", length(youtubeTimes)), 
+            rep("Prototype", length(prototypeTimes)))
+
+times.anova <- aov(allTimes ~ groups)
+summary(times.anova)
+
+```
