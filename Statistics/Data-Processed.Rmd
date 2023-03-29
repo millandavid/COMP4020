@@ -10,8 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Inputing the data into Variables and running the Anova test
 
 ```{r Processing data}
-youtubeTimes <- c(72, 72, 72, 72, 72, 72, 72)
-prototypeTimes <- c(140, 90, 129, 109, 167, 201, 155)
+youtubeTimes <- c(72, 75, 72, 72, 72, 72, 72, 72)
+prototypeTimes <- c(109, 182, 129, 201, 155, 180, 140, 90)
 
 allTimes <- c(youtubeTimes, prototypeTimes)
 groups <- c(rep("YouTube", length(youtubeTimes)), 
@@ -35,5 +35,20 @@ summary(times.anova)
 ```{r T-Test}
 
 t.test(youtubeTimes, prototypeTimes, paired = TRUE, alternative = "greater", conf.level = 0.95)
+
+```
+
+
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+
+results <- data.frame(youtubeTimes, prototypeTimes)
+
+results
+
+boxplot(results$prototypeTimes)
+
+g <- ggplot(results, aes(x = youtubeTimes, y = prototypeTimes, group = youtubeTimes))
+  g + geom_boxplot()
 
 ```
