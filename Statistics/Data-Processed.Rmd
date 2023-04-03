@@ -46,9 +46,26 @@ results <- data.frame(youtubeTimes, prototypeTimes)
 
 results
 
-boxplot(results$prototypeTimes)
+boxplot(results$prototypeTimes, ylab = "Prototype Times")
+
 
 g <- ggplot(results, aes(x = youtubeTimes, y = prototypeTimes, group = youtubeTimes))
-  g + geom_boxplot()
+  g + geom_boxplot() + labs(x = "Youtube Times", y = "Prototype Times")
 
+```
+
+
+```{r}
+youtubeTimes <- c(72, 75, 72, 72, 72, 72, 72, 72)
+prototypeTimes <- c(109, 182, 129, 201, 155, 180, 140, 90)
+
+df <- data.frame(Group = c(rep("YouTube", length(youtubeTimes)), rep("Prototype", length(prototypeTimes))),
+                 Time = c(youtubeTimes, prototypeTimes))
+                 
+library(ggplot2)
+
+ggplot(df, aes(x = Group, y = Time)) +
+  geom_boxplot() +
+  labs(x = "Group", y = "Time")                 
+                 
 ```
